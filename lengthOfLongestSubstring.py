@@ -4,7 +4,8 @@ class Solution:
         substring_dict = {}
         max_substring = 0 # initialize to empty case
         len_substring = 0
-        idx_substring_start = 0
+        idx_substring_start = -1
+        idx_substring_stop = 0
 
         for idx, char in enumerate(s):
             # Place every char into the dictionary, currently UPPER and lower are
@@ -12,7 +13,7 @@ class Solution:
             if char not in substring_dict.keys():
                 substring_dict[char] = idx
                 # We need this case to cover if we never hit a repeating character
-                len_substring = (idx - idx_substring_start) + 1
+                len_substring = (idx - idx_substring_start)
 
                 # If new substring is the record, update max
                 if len_substring > max_substring:
@@ -21,11 +22,12 @@ class Solution:
             # If the char already exists in the dictionary
             else:
                 # Get length of found substring (repeated char means end
-                # of substring found)
-                len_substring = idx - idx_substring_start
+                # of substring found)  Don't count current char since this is
+                # the repeated char
+                len_substring = ((idx - 1) - idx_substring_start)
 
-                # update substring start idx
-                idx_substring_start = substring_dict[char] + 1
+                # update substring start idx t
+                idx_substring_start = idx - 1
 
                 # update new idx for this char
                 substring_dict[char] = idx
@@ -35,9 +37,7 @@ class Solution:
                     max_substring = len_substring
 
         # Return max substring length
-        # This is either from subsequent substrings fou nd via repeating
-        # chars or a single string with no repeating characters
-        return max(len_substring, max_substring)
+        return max_substring
 
 
 if __name__ == "__main__":
@@ -96,3 +96,9 @@ if __name__ == "__main__":
     ans = solution.lengthOfLongestSubstring(input_str)
     assert (ans == 2)
     print("Test 9 - Passed: '" + input_str + "'")
+
+    # Test 10:
+    input_str = "tmmzuxt"
+    ans = solution.lengthOfLongestSubstring(input_str)
+    assert (ans == 5)
+    print("Test 10 - Passed: '" + input_str + "'")
