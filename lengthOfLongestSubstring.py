@@ -1,40 +1,35 @@
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-        # Key is detecting repeated letters
-        substring_dict = {}
+        # Solution is detecting repeated letters
+        substring = []
         max_substring = 0 # initialize to empty case
-        len_substring = 0
-        idx_substring_start = -1
-        idx_substring_stop = 0
 
         for idx, char in enumerate(s):
-            # Place every char into the dictionary, currently UPPER and lower are
+            # Place every char into the substring list, currently UPPER and lower are
             # considered unique
-            if char not in substring_dict.keys():
-                substring_dict[char] = idx
-                # We need this case to cover if we never hit a repeating character
-                len_substring = (idx - idx_substring_start)
+            if char not in substring:
+                substring.append(char)  # add new char
 
-                # If new substring is the record, update max
+                # Update length and max if needed
+                len_substring = len(substring)
                 if len_substring > max_substring:
                     max_substring = len_substring
 
-            # If the char already exists in the dictionary
-            else:
-                # Get length of found substring (repeated char means end
-                # of substring found)  Don't count current char since this is
-                # the repeated char
-                len_substring = ((idx - 1) - idx_substring_start)
+            else:  # If the char already exists in the substring
 
-                # update substring start idx t
-                idx_substring_start = idx - 1
+                # Get index of repeated character
+                idx_repeat = substring.index(char)
 
-                # update new idx for this char
-                substring_dict[char] = idx
-
-                # If new substring is the record, update max
+                # Update length and max if needed
+                len_substring = len(substring)
                 if len_substring > max_substring:
                     max_substring = len_substring
+
+                # Remove repeat char and any preceeding chars
+                substring = substring[idx_repeat + 1:]
+
+                # Add new char
+                substring.append(char)
 
         # Return max substring length
         return max_substring
@@ -102,3 +97,9 @@ if __name__ == "__main__":
     ans = solution.lengthOfLongestSubstring(input_str)
     assert (ans == 5)
     print("Test 10 - Passed: '" + input_str + "'")
+
+    # Test 11:
+    input_str = "ohomm"
+    ans = solution.lengthOfLongestSubstring(input_str)
+    assert (ans == 3)
+    print("Test 11 - Passed: '" + input_str + "'")
