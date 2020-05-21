@@ -7,15 +7,12 @@ class Solution:
         for char in s:
             # Place every char into the substring list, currently UPPER and lower are
             # considered unique
-            if char not in substring:
-                substring.append(char)  # add new char
-
-            else:  # If the char already exists in the substring
+            if char in substring:
                 # Remove repeat char and any preceeding chars
                 substring = substring[substring.index(char) + 1:]
 
-                # Add new char
-                substring.append(char)
+            # Add new char
+            substring.append(char)
 
             # Update length and max if needed
             max_substring = max(max_substring, len(substring))
