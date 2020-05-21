@@ -4,32 +4,21 @@ class Solution:
         substring = []
         max_substring = 0 # initialize to empty case
 
-        for idx, char in enumerate(s):
+        for char in s:
             # Place every char into the substring list, currently UPPER and lower are
             # considered unique
             if char not in substring:
                 substring.append(char)  # add new char
 
-                # Update length and max if needed
-                len_substring = len(substring)
-                if len_substring > max_substring:
-                    max_substring = len_substring
-
             else:  # If the char already exists in the substring
-
-                # Get index of repeated character
-                idx_repeat = substring.index(char)
-
-                # Update length and max if needed
-                len_substring = len(substring)
-                if len_substring > max_substring:
-                    max_substring = len_substring
-
                 # Remove repeat char and any preceeding chars
-                substring = substring[idx_repeat + 1:]
+                substring = substring[substring.index(char) + 1:]
 
                 # Add new char
                 substring.append(char)
+
+            # Update length and max if needed
+            max_substring = max(max_substring, len(substring))
 
         # Return max substring length
         return max_substring
