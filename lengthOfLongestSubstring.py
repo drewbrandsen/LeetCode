@@ -13,6 +13,10 @@ class Solution:
                 # We need this case to cover if we never hit a repeating character
                 len_substring += 1
 
+                # If new substring is the record, update max
+                if len_substring > max_substring:
+                    max_substring = len_substring
+
             # If the char already exists in the dictionary
             else:
                 # Get length of found substring (repeated char means end
@@ -70,3 +74,9 @@ if __name__ == "__main__":
     ans = solution.lengthOfLongestSubstring(input_str)
     assert(ans == 4)
     print("Test 6 - Passed: '" + input_str + "'")
+
+    # Test 7:
+    input_str = "cdd"
+    ans = solution.lengthOfLongestSubstring(input_str)
+    assert(ans == 2)
+    print("Test 7 - Passed: '" + input_str + "'")
