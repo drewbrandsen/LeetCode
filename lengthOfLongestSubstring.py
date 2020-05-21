@@ -1,17 +1,18 @@
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
         # Key is detecting repeated letters
-        letter_dict = {}
+        substring_dict = {}
         max_substring = 0 # initialize to empty case
         len_substring = 0
+        idx_substring_start = 0
 
         for idx, char in enumerate(s):
             # Place every char into the dictionary, currently UPPER and lower are
             # considered unique
-            if char not in letter_dict.keys():
-                letter_dict[char] = idx
+            if char not in substring_dict.keys():
+                substring_dict[char] = idx
                 # We need this case to cover if we never hit a repeating character
-                len_substring += 1
+                len_substring = (idx - idx_substring_start) + 1
 
                 # If new substring is the record, update max
                 if len_substring > max_substring:
@@ -21,17 +22,20 @@ class Solution:
             else:
                 # Get length of found substring (repeated char means end
                 # of substring found)
-                len_substring = idx - letter_dict[char]
+                len_substring = idx - idx_substring_start
 
-                # Update index for this char since substring starts over
-                letter_dict[char] = idx
+                # update substring start idx
+                idx_substring_start = substring_dict[char] + 1
+
+                # update new idx for this char
+                substring_dict[char] = idx
 
                 # If new substring is the record, update max
                 if len_substring > max_substring:
                     max_substring = len_substring
 
         # Return max substring length
-        # This is either from subsequent substrings found via repeating
+        # This is either from subsequent substrings fou nd via repeating
         # chars or a single string with no repeating characters
         return max(len_substring, max_substring)
 
@@ -80,3 +84,15 @@ if __name__ == "__main__":
     ans = solution.lengthOfLongestSubstring(input_str)
     assert(ans == 2)
     print("Test 7 - Passed: '" + input_str + "'")
+
+    # Test 8:
+    input_str = "abba"
+    ans = solution.lengthOfLongestSubstring(input_str)
+    assert(ans == 2)
+    print("Test 8 - Passed: '" + input_str + "'")
+
+    # Test 9:
+    input_str = "aab"
+    ans = solution.lengthOfLongestSubstring(input_str)
+    assert (ans == 2)
+    print("Test 9 - Passed: '" + input_str + "'")
