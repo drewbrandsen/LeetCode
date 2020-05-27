@@ -18,7 +18,7 @@ class Solution:
             idx2 = int((total_len + 1) / 2)
 
         # Zipper the arrays until we reach idx1 (and idx2)
-        for i in range(larger_len + 1):
+        for i in range(idx2 + 1):
             if len(nums1) == 0:
                 new_list += nums2  # concat remainder of list2
                 break
