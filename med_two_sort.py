@@ -7,34 +7,44 @@ class Solution:
         len_1 = len(nums1)
         len_2 = len(nums2)
         total_len = len_1 + len_2
-        larger_len = max(len_1, len_2)
 
         # Get the median index
         if total_len % 2:  # odd number
+            odd_num = 1
             idx1 = int((total_len - 1) / 2)
             idx2 = idx1
         else:  # even number
+            odd_num = 0
             idx1 = int((total_len - 1) / 2)
             idx2 = int((total_len + 1) / 2)
 
-        # Zipper the arrays until we reach idx1 (and idx2)
+        # Read the arrays until we reach idx1 and idx2
         for i in range(idx2 + 1):
             if len(nums1) == 0:
-                new_list += nums2  # concat remainder of list2
-                break
+                if i == idx1 or i == idx2:  # Only save target indexes
+                    new_list.append(nums2[0])
+                nums2.pop(0)
+
             elif len(nums2) == 0:
-                new_list += nums1  # concat remainder of list1
-                break
-            else:
-                if nums1[0] < nums2[0]:
+                if i == idx1 or i == idx2:  # Only save target indexes
                     new_list.append(nums1[0])
+                nums1.pop(0)
+
+            else:
+                if i == idx1 or i == idx2:  # Only save target indexes
+                    new_list.append(min(nums1[0], nums2[0]))
+
+                # Remove min value
+                if nums1[0] < nums2[0]:
                     nums1.pop(0)
                 else:
-                    new_list.append(nums2[0])
                     nums2.pop(0)
 
         # Calculate the overall median
-        median_result = (new_list[idx1] + new_list[idx2]) / 2
+        if odd_num == 1:
+            median_result = new_list[0]
+        else:
+            median_result = (new_list[0] + new_list[1]) / 2
 
         # Return the median
         return median_result
