@@ -1,6 +1,21 @@
 class Solution:
 
     def check_palindrome(self, s: str) -> int:
+        # Need to search from the middle outward to improve speed
+        if len(s) == 1:
+            return 1
+        elif len(s) == 2:
+            if s[0] == s[1]:
+                return 2
+            else:
+                return -1
+        else:
+            if s[0] == s[-1]:
+                result = self.check_palindrome(s[1:-1])
+                if result == -1:
+                    return result
+                else:
+                    result += result
 
         len_string = len(s)
 
@@ -34,11 +49,6 @@ class Solution:
 
         # Loop over every character
         for idx, ch in enumerate(s):
-
-            # If the next char is the same as the previous, it can't be the start
-            # of a longer palindrome
-            if idx > 0 and ch == s[idx-1]:
-                break
 
             # Find indexes that match the current character 'ch'
             indexes_ch = [i for i, letter in enumerate(s) if letter == ch]
