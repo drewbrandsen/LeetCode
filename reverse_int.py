@@ -1,6 +1,6 @@
 class Solution:
     def reverse(self, x: int) -> int:
-        result_int = ""
+        result_str = ""
 
         # preserve sign
         if x < 0:
@@ -12,9 +12,16 @@ class Solution:
             str_x = str(x)
 
         for digit in reversed(str_x):
-            result_int += digit
+            result_str += digit
 
-        return sign * int(result_int)
+        result_int = sign * int(result_str)
+
+        # Add overflow checks
+        if result_int > 2**31 or result_int < -(2**(31) - 1):
+            return 0
+        else:
+            return result_int
+
 
 if __name__ == "__main__":
     runSolution = Solution()
