@@ -11,9 +11,10 @@ class Solution:
             sign = 1
             str_x = str(x)
 
-        for digit in reversed(str_x):
-            result_str += digit
+        # Reverse the string (python style)
+        result_str = str_x[::-1]
 
+        # Convert back to an int
         result_int = sign * int(result_str)
 
         # Add overflow checks
