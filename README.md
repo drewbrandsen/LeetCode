@@ -10,4 +10,5 @@ Leet Code solutions
 | [Longest Palindrome](https://leetcode.com/problems/longest-palindromic-substring/) | medium | [longestPalindrome.py](https://github.com/drewbrandsen/LeetCode/blob/master/longestPalindrome.py) |
 | [ZigZag Conversion](https://leetcode.com/problems/zigzag-conversion/) | medium | tbd |
 | [Reverse Int](https://leetcode.com/problems/reverse-integer/) | easy | [reverse_int.py](https://github.com/drewbrandsen/LeetCode/blob/master/reverse_int.py) |
+| [String to Int](https://leetcode.com/problems/string-to-integer-atoi/) | medium | [string_to_int.py](https://github.com/drewbrandsen/LeetCode/blob/master/string_to_int.py)
 
